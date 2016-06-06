@@ -1,0 +1,61 @@
+extends layout
+
+block content
+  #main
+   .border
+   .centre
+    h1= title
+    p
+      |Instructions: Use the search box or drag the map to your chosen location. Use the buttons to search for charities, companies and volunteering opportunities in the area
+    p
+      |It will take quite a while to build the full index as we are using 
+      a(href="#services") free cloud services
+      |  and are trying not to swamp the 
+      a(href="#sources") data sources
+      |  with requests.
+    p
+      a(href="https://github.com/cioportfolio/volunteering-map/blob/master/README.md#background") About this project.
+
+    // Wrapper
+    #wrapper
+        h2 Charity Map
+        p WARNING: Markers only indicate the postcode of the registered address. Click on the marker and follow the links to get the actual address
+        #controls
+            input#postcode(type="text",size=40, placeholder="Type post code or location and hit 'Enter'")
+            button#doit(type="button") Find opportunity
+            button#charity(type="button") Find charity
+            button#company(type="button") Find company
+        #message
+        #map
+    // /WRAPPER
+    p#sources Data sources:
+    ul
+      li
+        a(href="http://opencharities.org/info/about") Open Charities
+      li
+        a(href="https://www.gov.uk/government/organisations/charity-commission") Charities Commission
+        |  data provided under the 
+        a(href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/") Open Government License 2
+      li
+        a(href='https://www.gov.uk/government/organisations/companies-house') Companies House
+        |  data provided under the 
+        a(href='https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/') Open Government License 3
+      li
+        a(href='https://do-it.org/') Do-It
+        |  subject to the  
+        a(href='https://do-it.org/about/termsandconditions') Do-It.org terms and conditions
+    #counters
+    p#services Services:
+    ul
+      li
+        a(href="www.heroku.com") Heroku
+      li
+        a(href="www.firebase.com") Firebase
+      li
+        a(href="https://developers.google.com/maps/") Google Maps
+   .border
+
+   script.
+        var batch = #{batch};
+        var fburl = "#{fburl}";
+        var interval = #{interval};

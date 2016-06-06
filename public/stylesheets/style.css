@@ -1,0 +1,35 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.border {
+    display: inline-block;
+    width: 20 px;
+}
+
+.centre {
+    display: inline-block;
+    margin: 0 25px;
+}
+
+#message {
+    text-transform: capitalize;
+}

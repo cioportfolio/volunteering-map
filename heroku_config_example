@@ -1,0 +1,1 @@
+heroku config:set CLEANUP=<milliseconds> MAPINTERVAL=<milliseconds> MAPBATCH=<number of orgs> CHARITY=<milliseconds> COMPANY=<milliseconds> FIREBASEKEY=<secret> GEO=<milliseconds> GOOGLEKEY=<API key> COMPANYKEY=<Companies house API Key>

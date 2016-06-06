@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport",content="initial-scale=1.0")
+    meta(charset="utf-8")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+    script(src="https://cdn.firebase.com/js/client/2.4.2/firebase.js")
+    script(src="/javascripts/markerclusterer_compiled.js")
+    script(src="https://cdn.firebase.com/libs/geofire/4.0.0/geofire.min.js")
+    script(src="/javascripts/jscookie.js")
+    script(src='/javascripts/global.js')
+    script(async, defer,
+      src='https://maps.googleapis.com/maps/api/js?callback=initMap')
+
