@@ -96,6 +96,8 @@ function initMap() {
         }
       })
 
+      document.getElementById('spinner').style.display = "none";
+
       updateCounters()
 }
 
@@ -316,7 +318,8 @@ function refresh(type) {
         center: center,
         radius: radius
       });
-      findMarkers(type);
+      document.getElementById('spinner').style.display = "block"
+      findMarkers(type)
     }
   }
 }
@@ -324,7 +327,7 @@ function refresh(type) {
 function findMarkers(type) {
     geoQuery[type].on("key_entered", function(id, location) {
       if (!(markerIDs[type][id])) {
-        markerIDs[type][id]=true;
+        markerIDs[type][id]=true
         getMarker(type, id, location)
       }
     });
@@ -356,6 +359,7 @@ function getMarker(type, id, location) {
             getFeature(type, id, location, contentString, id.toString())
           } else {
             console.log('Feature for ' + type + ' ID : ' + id + ' found but details not found in firebase');
+            document.getElementById('spinner').style.display = "none"
           }
         }
       });
@@ -406,6 +410,7 @@ function setMarker(type, id, location, contentString, geo, title) {
   marker = newMarker(markerDetails, contentString);
   mc.addMarker(marker);
   markers[type].push(marker);
+  document.getElementById('spinner').style.display = "none"
 }
 
 // function nudge() {
