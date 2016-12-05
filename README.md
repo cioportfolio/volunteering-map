@@ -4,7 +4,7 @@ Builds a geocoded database of UK charities and companies and provides a web page
 
 Further background on this project can be found [here](#background).
 
-Issues and ideas can be found [here](#On-going-development).
+Issues and ideas can be found [here](#on-going-development).
 
 ##Setup
 
