@@ -145,6 +145,7 @@ function doItPage (page) {
     $.getJSON('/DOIT', {page: page.toString(), lat: center[0].toString(), lng: center[1].toString(), miles: (radius/1.6).toString()}, function (response) {
       if (response.meta.code !== 200) {
         console.log("Do-It error Page:'" + page + "' Code:" + response.meta.code + " Type:" + response.meta.error_type + " Message:'" + reponse.meta.error_message + "'")
+        document.getElementById('spinner').style.display = "none"
       } else {
         for (var i=0; i < response.data.items.length; i++) {
           if (!(markerIDs[DOIT][response.data.items[i].id])) {
@@ -168,31 +169,9 @@ function doItPage (page) {
         }
       }
     })
+  } else {
+    document.getElementById('spinner').style.display = "none"
   }
-
-
-  // $.ajax({
-  //   url: url,
-  //   dataType: "json",
-  //   success: function(data) {
-  //     var response = JSON.parse(data)
-  //     if (response.meta.code !== 200) {
-  //       console.log("Do-It error url:'" + url + "' Code:" + response.meta.code + " Type:" + response.meta.error_type + " Message:'" + reponse.meta.error_message + "'")
-  //     } else {
-  //       for (var i=0; i < response.data.items.length; i++) {
-  //         contentString = '<div>';
-  //         contentString = '<h1><a href="http://do-it.org/opportunities/' + response.data.items[i].id + '"> Do-It : ' + response.data.items[i].title + '</a></h1>'
-  //         contentString += '<p>' + response.data.items[i].for_recruiter.name + '</p>'
-  //         contentString += '<p>' + response.data.items[i].postcode + '</p>'
-  //         contentString += '</div>'
-  //         doItMarker(response.data.items[i].title, response.data.items[i].lat, response.data.items[i].lng, contentString)
-  //       }
-  //       if ((response.meta.current_page < response.meta.total_pages) && (response.meta.current_page * response.meta.items_per_page < batch)) {
-  //         doItPage(response.links.next.href)
-  //       }
-  //     }
-  //   }
-  // })
 }
 /**
  * Generates a geohash in the same form as GeoFire
@@ -250,18 +229,6 @@ function geohash (location) {
   return hash;
 };
 
-// function doItMarker (title, lat, lng, contentString) {
-//   var markerDetails = {
-//     position: {lat: lat, lng: lng},
-//     map: map,
-//     title: title,
-//     icon: icon[DOIT]
-//   }
-//   marker = newMarker(markerDetails, contentString)
-//   mc.addMarker(marker)
-//   markers[DOIT].push(marker)
-// }
-
 function toggle (type) {
   if (tog[type]) {
     if (geoQuery[type]) {
@@ -303,6 +270,9 @@ function movemap() {
 }
 
 function refresh(type) {
+  if (markers[type].length == 0) {
+    document.getElementById('spinner').style.display = "block";
+  }
   if (type == DOIT) {
     doItPage(1)
   } else {
@@ -318,7 +288,6 @@ function refresh(type) {
         center: center,
         radius: radius
       });
-      document.getElementById('spinner').style.display = "block"
       findMarkers(type)
     }
   }
@@ -329,6 +298,8 @@ function findMarkers(type) {
       if (!(markerIDs[type][id])) {
         markerIDs[type][id]=true
         getMarker(type, id, location)
+      } else {
+           document.getElementById('spinner').style.display = "none";
       }
     });
 }
@@ -344,7 +315,8 @@ function getMarker(type, id, location) {
              geoQuery[type].cancel();
              delete geoQuery[type];
              document.getElementById("message").innerHTML=type + "Query limit: Only showing first " + batch + " " + labels[type]
-           }
+           };
+           document.getElementById('spinner').style.display = "none";
         } else {
           if (snapshot.exists()) {
             feature = snapshot.val();
@@ -359,7 +331,7 @@ function getMarker(type, id, location) {
             getFeature(type, id, location, contentString, id.toString())
           } else {
             console.log('Feature for ' + type + ' ID : ' + id + ' found but details not found in firebase');
-            document.getElementById('spinner').style.display = "none"
+            document.getElementById('spinner').style.display = "none";
           }
         }
       });
